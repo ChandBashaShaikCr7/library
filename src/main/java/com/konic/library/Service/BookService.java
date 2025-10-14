@@ -25,6 +25,10 @@ public class BookService {
 //   public void updateBook(Long id,book updatedBook){
 //       Optional<book> existingBookOptional=bookrepository.findAllById(id);
 //   }
+    public BookEntity updateBook(BookEntity book){
+       return bookrepository.save(book);
+    }
+
    public void deleteBook(Long id){
    bookrepository.deleteById(id);
    }
