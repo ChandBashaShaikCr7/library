@@ -32,6 +32,10 @@ public class BookController {
         bookservice.deleteBook(id);
         return "Deleted Successfully";
     }
+    @PostMapping("/addMultiple")
+    public List<BookEntity> addMultipleBooks(@RequestBody List<BookEntity> books){
+        return bookservice.addMultipleBooks(books);
+    }
 
 
 }
