@@ -22,7 +22,7 @@ public class BookService {
             throw new IllegalArgumentException("Book author cannot be empty");
         }
         if (book.getTotalcopies() <= 0) {
-            throw new IllegalArgumentException("Book totalcopies cannot be zero");
+            throw new IllegalArgumentException("Book totalcopies cannot be zero or cannot be Negative");
         }
 
         log.info("Service: Adding book: {}", book);
@@ -38,6 +38,18 @@ public List<BookEntity> getAllBooks(){
 }
 
 public BookEntity updateBook(BookEntity book){
+        if(book.getId()==null){
+            throw new IllegalArgumentException("Book id cannot be null");
+        }
+        if(book.getTitle()==null || book.getTitle().trim().isEmpty()) {
+            throw new IllegalArgumentException("Book title cannot be empty");
+        }
+        if(book.getAuthor()==null || book.getAuthor().trim().isEmpty()) {
+            throw new IllegalArgumentException("Book author cannot be empty");
+        }
+        if(book.getTotalcopies() <= 0){
+            throw new IllegalArgumentException("Book totalcopies cannot be zero or cannot be Negative");
+        }
     log.info("Service: Updating book: {}", book);
     return bookrepository.save(book);
 }
