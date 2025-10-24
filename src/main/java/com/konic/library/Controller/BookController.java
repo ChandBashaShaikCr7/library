@@ -1,6 +1,7 @@
 package com.konic.library.Controller;
 
 import com.konic.library.Entity.BookEntity;
+import com.konic.library.Exception.BookNotFoundException;
 import com.konic.library.Service.BookService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class BookController {
         return bookservice.addBook(book);
     }
     @GetMapping("/all")
-    public List<BookEntity> getAllBooks() {
+    public List<BookEntity> getAllBooks() throws BookNotFoundException {
         log.info("Fetching all books");
         return bookservice.getAllBooks();
     }
@@ -30,7 +31,7 @@ public class BookController {
         return bookservice.updateBook(book);
     }
     @DeleteMapping("/delete/{id}")
-    public String deleteBook(@PathVariable Long id) {
+    public String deleteBook(@PathVariable Long id) throws BookNotFoundException {
         log.info("Deleting book with id: {}", id);
         bookservice.deleteBook(id);
         return "Deleted Successfully";
@@ -41,7 +42,7 @@ public class BookController {
         return bookservice.addMultipleBooks(books);
     }
     @DeleteMapping("/deleteMultiple")
-   public String deleteMultipleBooks(@RequestBody List<Long> ids){
+   public String deleteMultipleBooks(@RequestBody List<Long> ids) throws BookNotFoundException {
         log.info("Deleting multiple books: {}", ids);
         bookservice.deleteMultipleBooks(ids);
         return "Deleted Successfully";

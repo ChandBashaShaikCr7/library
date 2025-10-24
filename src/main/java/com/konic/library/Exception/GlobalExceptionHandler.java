@@ -19,4 +19,17 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleGeneral(Exception ex) {
         return new ResponseEntity<>("Something went wrong: " + ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
+    private ErrorResponse createErrorResponse(String message) {
+        return new ErrorResponse(message);
+    }
+
+    static class ErrorResponse {
+        private String error;
+        public ErrorResponse(String error) {
+            this.error = error;
+        }
+        public String getError() {
+            return error;
+        }
+    }
 }
