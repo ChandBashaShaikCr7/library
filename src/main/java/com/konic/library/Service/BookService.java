@@ -5,7 +5,9 @@ import com.konic.library.Exception.BookNotFoundException;
 import com.konic.library.Repository.BookRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
@@ -13,7 +15,20 @@ import java.util.List;
 @Service
 public class BookService {
     @Autowired
+    private RestTemplate restTemplate;
+
+    @Autowired
     private BookRepository bookrepository;
+
+    public String getCityPopulationData() {
+        String externalApiUrl = "https://countriesnow.space/api/v0.1/countries/population";
+        log.info("Fetching data from external API: {}", externalApiUrl);
+
+        ResponseEntity<String> response = restTemplate.getForEntity(externalApiUrl, String.class);
+        log.info("Response received from external API");
+
+        return response.getBody(); // returns JSON as a string
+    }
 
     public BookEntity addBook(BookEntity book) {
         if (book.getTitle() == null || book.getTitle().trim().isEmpty()) {

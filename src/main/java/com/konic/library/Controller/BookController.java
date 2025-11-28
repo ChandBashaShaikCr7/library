@@ -47,5 +47,11 @@ public class BookController {
         bookservice.deleteMultipleBooks(ids);
         return "Deleted Successfully";
    }
+    @GetMapping("/countries")
+    public String getCityPopulationData() {
+        log.info("Fetching population data from external API");
+        return bookservice.getCityPopulationData();
+    }
+
 
 }
